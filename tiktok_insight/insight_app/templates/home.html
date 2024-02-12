@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="alert alert-info" role="alert" hidden>
+    <p>Upload 3 CSV files to compare them.</p>
+    <p>Each file should have the same columns and the same order of columns.</p>
+  </div>
+  <div class="container container-fluid p-5">
+    <h1 class="display-4">Upload CSV Files</h1>
+    <hr class="mt-5" />
+    <form method="post"
+          enctype="multipart/form-data"
+          action="{% url 'upload_csv' %}">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="title" class="form-label fs-5">Title</label>
+        <input type="text"
+               class="form-control"
+               id="title"
+               name="title"
+               value="My tiktok performance">
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label fs-5">Description</label>
+        <textarea class="form-control" id="description" name="description" rows="3">Created by tiktok insight</textarea>
+      </div>
+      <div class="mb-3">
+        <label for="videos" class="form-label fs-5">Video posts.csv</label>
+        <input type="file"
+               class="form-control"
+               id="videos"
+               name="videos"
+               accept=".csv">
+      </div>
+      <div class="mb-3">
+        <label for="trending" class="form-label fs-5">Trending videos.csv</label>
+        <input type="file"
+               class="form-control"
+               id="trending"
+               name="trending"
+               accept=".csv">
+      </div>
+      <div class="mb-3">
+        <label for="total" class="form-label fs-5">Last xx days.cvs</label>
+        <input type="file"
+               class="form-control"
+               id="total"
+               name="total"
+               accept=".csv">
+      </div>
+      <div class="mb-3">
+        <label for="gender" class="form-label fs-5">Gender.csv</label>
+        <input type="file"
+               class="form-control"
+               id="gender"
+               name="gender"
+               accept=".csv">
+      </div>
+      <div class="mb-3">
+        <label for="followers" class="form-label fs-5">Total Followers.csv</label>
+        <input type="file"
+               class="form-control"
+               id="followers"
+               name="followers"
+               accept=".csv">
+      </div>
+      <div class="mb-3">
+        <label for="territory" class="form-label fs-5">Top Territories.csv</label>
+        <input type="file"
+               class="form-control"
+               id="territory"
+               name="territory"
+               accept=".csv">
+      </div>
+      <div class="mb-3">
+        <label for="activity" class="form-label fs-5">Follower activity.csv</label>
+        <input type="file"
+               class="form-control"
+               id="activity"
+               name="activity"
+               accept=".csv">
+      </div>
+      <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+  </div>
+{% endblock %}

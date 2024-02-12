@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_head %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="{% static 'js/plot_total_by_day.js' %}" defer></script>
+    <script src="{% static 'js/plot_genders_distribution.js' %}" defer></script>
+    <script src="{% static 'js/plot_followers.js' %}" defer></script>
+    <script src="{% static 'js/plot_activity.js' %}" defer></script>
+    <script src="{% static 'js/plot_region.js' %}" defer type="module"></script>
+{% endblock %}
+{% block content %}
+    {% load filters %}
+    <div class="container container-fluid my-4 p-1">
+        <h1 class="display-5">
+            Results for: <em>{{ report.title|truncatechars:40 }}</em>
+        </h1>
+        <hr class="my-5" />
+        <div class="row">
+            <div class="mb-4 col-lg-4 col-12">
+                <div class="border rounded m-3 mx-1 p-1 clickable-card shadow">
+                    <h1 class="display-4  lead text-center p-2">
+                        <p class="fs-2">Total views</p>
+                        {{ report.total_views|format_number }}<i class="px-3 text-primary  fa-regular fa-eye"></i>
+                    </h1>
+                </div>
+                <div class="border rounded m-3 mx-1 p-1 clickable-card shadow">
+                    <h1 class="display-4  lead text-center p-2">
+                        <p class="fs-2">Videos</p>
+                        {{ report.total_videos|format_number }}<i class="px-3 text-warning  fa-regular fa-video"></i>
+                    </h1>
+                </div>
+                <div class="border rounded m-3 mx-1 p-1 clickable-card shadow">
+                    <h1 class="display-4  lead text-center p-2">
+                        <p class="fs-2">Likes</p>
+                        {{ report.total_likes|format_number }}<i class="px-3 text-danger fas fa-heart"></i>
+                    </h1>
+                </div>
+            </div>
+            <div class="mb-4 col-lg-8 col-12">
+                <canvas id="totalByDay" data-plot="{{ plot_data.total_by_day }}"></canvas>
+            </div>
+            <h1 class="display-5 text-warning">followers</h1>
+            <hr class="my-5">
+            <div class="mb-4 col-lg-8 col-12">
+                <canvas id="followers" data-plot="{{ plot_data.followers }}"></canvas>
+            </div>
+            <div class="mb-4 col-lg-4 col-12">
+                <div class="border rounded m-3 mx-1 p-1 clickable-card shadow">
+                    <h1 class="display-4  lead text-center p-2">
+                        <p class="fs-2">Observers</p>
+                        {{ report.totalfollowers_set.last.followers|format_number }}<i class="px-3 text-primary  fa-regular fa-person"></i>
+                    </h1>
+                </div>
+                <div class="border rounded m-3 mx-1 p-1 clickable-card shadow">
+                    <h1 class="display-4  lead text-center p-2">
+                        <p class="fs-2">Unique viewers</p>
+                        {{ report.total_unique_viewers|format_number }}
+                    </h1>
+                </div>
+                <div class="border rounded m-3 mx-1 p-12 clickable-card shadow">
+                    <h1 class="display-4  lead text-center p-2">
+                        <p class="fs-2">Countries</p>
+                        {{ report.total_territories }} <i class="fa-solid fa-globe text-success"></i>
+                    </h1>
+                </div>
+            </div>
+            <hr class="my-5">
+            <div class="mb-4 col-lg-4 col-12">
+                <canvas id="gendersDistribution" data-plot="{{ plot_data.genders }}"></canvas>
+            </div>
+            <div class="mb-4 col-lg-8 col-12">
+                <canvas id="regions" data-plot="{{ plot_data.regions }}"></canvas>
+            </div>
+            <h1 class="display-5 text-warning">Tips</h1>
+            <hr class="my-5">
+            <div class="mb-4 col-lg-8 col-12">
+                <canvas id="activity" data-plot="{{ plot_data.followers_activity_by_hour }}"></canvas>
+            </div>
+            <div class="mb-4 col-lg-4 col-12">
+                <div class="border rounded m-3 mx-1 p-1 clickable-card shadow">
+                    <h1 class="display-4  lead text-center p-2">
+                        <p class="fs-2">Best hour to upload video</p>
+                        {{ plot_data.best_upload_hour }}<i class="px-3 text-warning  fa-regular fa-stopwatch"></i>
+                    </h1>
+                </div>
+                <div class="border rounded m-3 mx-1 p-1 clickable-card shadow">
+                    <h1 class="display-4  lead text-center p-2">
+                        <p class="fs-2">Make vids for people from</p>
+                        {{ report.most_popular_country.country }}<i class="px-3 text-warning  fa-regular fa-flag"></i>
+                    </h1>
+                </div>
+            </div>
+            <h1 class="display-5 text-warning">Videos</h1>
+            <hr class="my-5">
+            {% for video in report.video_set.all %}
+                <div class="col-lg-6 col-12 mb-4 p-1">{% include "_video_stats.html" with video=video %}</div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% load filters %}
+<div class="card m-2  clickable-card ">
+    <div class="card-header border-1 p-3 m-0 d-flex justify-content-between {% if video.total_views > 100000 %}bg-success{% endif %}">
+        <a class="fs-5 text-lead text-decoration-none text-light"
+           href="{{ video.video_link }}">{{ video.video_title|truncatechars:45 }}</a>
+        <span>{{ video.post_time }}</span>
+    </div>
+    <div class="card-body ">
+        <div class="row my-2">
+            <div class="col-3 fs-4 text-center">
+                <i class="text-primary fa-solid fa-eye"></i> {{ video.total_views|format_number }}
+            </div>
+            <div class="col-3 fs-4 text-center">
+                <i class="fas fa-heart text-danger"></i> {{ video.total_likes|format_number }}
+            </div>
+            <div class="col-3 fs-4 text-center">
+                <i class="fas fa-comments text-warning"></i>  {{ video.total_comments|format_number }}
+            </div>
+            <div class="col-3 fs-4 text-center">
+                <i class="fas fa-share text-success"></i>  {{ video.total_shares|format_number }}
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col-3 fs-4 text-center"></div>
+            <div class="col-3 fs-4 text-center">
+                {{ video.likes_to_views_ratio|floatformat:2 }}
+                <i class="fa-solid fa-percent"></i>
+            </div>
+            <div class="col-3 fs-4 text-center">
+                {{ video.comments_to_views_ratio|floatformat:2 }}
+                <i class="fas fa-percent"></i>
+            </div>
+            <div class="col-3 fs-4 text-center">
+                {{ video.shares_to_views_ratio|floatformat:2 }}
+                <i class="fas fa-percent"></i>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-muted">Tags: {{ video.tags }}</div>
+</div>

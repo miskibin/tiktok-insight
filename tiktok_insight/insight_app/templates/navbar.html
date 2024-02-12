@@ -1,0 +1,36 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg rounded-bottom border-3 border-bottom border-danger pb-1">
+    <div class="container-fluid">
+        <a class="navbar-brand nav-item d-flex justify-content-center align-items-center"
+           href="/"
+           style="height: 100%">
+            <img src="{% static 'img/logo.png' %}"
+                 alt="logo"
+                 width="40"
+                 height="40"
+                 class="d-inline-block align-middle rounded">
+            <p class="fs-4 mx-1 m-0 text-center">Tiktok insiht</p>
+        </a>
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active text-start " aria-current="page" href="/admin">Admin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active text-start "
+                       aria-current="page"
+                       href="{% url 'analysis' %}">Analysis</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
