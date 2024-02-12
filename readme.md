@@ -15,7 +15,7 @@ TikTok Insight is a Django application that provides insights into TikTok video 
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/tiktok_insight.git
+    git clone https://github.com/michalskibinski109/tiktok-insight
     ```
 2. Navigate to the project directory:
     ```sh
